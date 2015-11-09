@@ -17,7 +17,7 @@ int main(){
     exibeOrdem(minhaArvore);
     exibeBusca(minhaArvore);
     exibeRemocao(minhaArvore);
-    //exibeOrdem(minhaArvore);
+    exibeOrdem(minhaArvore);
  
 	return 1;
 }
@@ -64,7 +64,7 @@ void exibeBusca(Arvore* minhaArvore){
 void exibeRemocao(Arvore* minhaArvore){
     printf("\n#----- Removendo valores da árvore: -----#\n");
     remover(minhaArvore->raiz, 13);
-    remover(minhaArvore->raiz, 25);
+    //remover(minhaArvore->raiz, 25);
     //removerNoUmFilho(minhaArvore->raiz, 30);
     //removerNoDoisFilhos(minhaArvore->raiz, 10);
 }

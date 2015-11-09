@@ -1,0 +1,2 @@
+gcc main.c mallocArvore.c mallocNode.c inserir.c ordenar.c buscar.c remover.c -o main
+
