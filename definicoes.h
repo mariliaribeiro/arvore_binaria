@@ -6,6 +6,7 @@
 
 typedef struct node Node; 
 typedef struct arvoreBinaria Arvore;
+typedef struct parentesco Parentesco;
 
 struct node {
 	int valor; //element
@@ -16,4 +17,9 @@ struct node {
 struct arvoreBinaria {
 	Node* raiz;
 };
+
+struct parentesco{
+    Node* noPai = NULL;
+    Node* noPaiSubstituto = NULL;
+}
 #endif

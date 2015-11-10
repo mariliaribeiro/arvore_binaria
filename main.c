@@ -51,10 +51,11 @@ void exibeOrdem(Arvore* minhaArvore){
     posOrdem(minhaArvore->raiz);
     printf("\nÁrvore em ordem: ");
     emOrdem(minhaArvore->raiz);
+    printf("\n");
 }
 
 void exibeBusca(Arvore* minhaArvore){
-    printf("\n\n#----- Buscando valores da árvore -----#\n");
+    printf("\n#----- Buscando valores da árvore -----#\n");
     imprimeBusca(buscar(minhaArvore->raiz, 10), 10);
     imprimeBusca(buscar(minhaArvore->raiz, 20), 20);
     imprimeBusca(buscar(minhaArvore->raiz, 15), 15);

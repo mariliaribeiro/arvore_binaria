@@ -1,10 +1,11 @@
 #include "remover.h"
 
 Node* remover(Node* no, int valor){
-   
-    Node* noPai = NULL;
+
+    Parentesco p;
+    //Node* noPai;
     Node* noRemover;
-    
+
     if (no != NULL){
         if (no->valor == valor){    
 			noRemover = no;
@@ -12,7 +13,7 @@ Node* remover(Node* no, int valor){
             
             // é folha?
 			if (no->sae == NULL && no->sad == NULL)
-				return isFolha(no, noPai, noRemover, valor);
+				return isFolha(no, p->noPai, noRemover, valor);
             
 			//else if ((no->sae == NULL && no->sad != NULL) || (no->sad == NULL && no->sae != NULL)) // é sub folha?
 				//return isSubFolha(no, noPai, noRemover, valor);	
@@ -21,20 +22,20 @@ Node* remover(Node* no, int valor){
 				//return isPaiDoisFilhos(no, noPai, noRemover, valor);
         }
         else if (no->valor > valor){
-            noPai = no;
-            printf("\npai: %d \nprox: %d\n", noPai->valor, no->sae->valor);
+            p->noPai = no;
+            printf("\npai: %d \nprox: %d\n", p->noPai->valor, no->sae->valor);
             return remover(no->sae, valor);
         }
         else{
-            noPai = no;
-            printf("\npai: %d \nprox: %d\n", noPai->valor, no->sae->valor);
+            p->noPai = no;
+            printf("\npai: %d \nprox: %d\n", p->noPai->valor, no->sae->valor);
             return remover(no->sad, valor);
         }
     }
     return no;
 }
 
-Node* isFolha(Node* no, Node* noPai, Node* noRemover, int valor){
+Node* isFolha(Node* no, Parentesco* noPai, Node* noRemover, int valor){
 	if(noPai->valor > valor)
 		 noPai->sae = NULL;
 	else
