@@ -17,4 +17,9 @@ struct node {
 struct arvoreBinaria {
 	Node* raiz;
 };
+
+struct parentesco{
+    Node* noPai = NULL;
+    Node* noPaiSubstituto = NULL;
+}
 #endif
