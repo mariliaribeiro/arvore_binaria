@@ -6,7 +6,6 @@
 
 typedef struct node Node; 
 typedef struct arvoreBinaria Arvore;
-typedef struct parentesco Parentesco;
 
 struct node {
 	int valor; //element
