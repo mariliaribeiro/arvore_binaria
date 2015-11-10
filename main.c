@@ -25,7 +25,6 @@ int main(){
 void popular(Arvore* arvore){
     arvore->raiz = inserir(arvore->raiz, 20);
     arvore->raiz = inserir(arvore->raiz, 10);
-    //arvore->raiz = inserir(arvore->raiz, 10);
     arvore->raiz = inserir(arvore->raiz, 15);
     arvore->raiz = inserir(arvore->raiz, 13);
     arvore->raiz = inserir(arvore->raiz, 18);
