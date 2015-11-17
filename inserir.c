@@ -1,5 +1,5 @@
 #include "inserir.h"
-#include "mallocNode.h"
+#include "malloc.h"
 
 Node* inserirNo(int valor){
     Node* novoNo = criaNode();

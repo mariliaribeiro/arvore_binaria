@@ -1,99 +1,101 @@
 #include "remover.h"
+#include "getPai.h"
+#include "getTipoNo.h"
 
-Node* remover(Node* no, int valor){
+Node* remover(Arvore* arvore, Node* no, int valor){
     Node* noPai;
-    
+        
     if (no != NULL){
         if (no->valor == valor){    
-            // é folha?
-			if (no->sae == NULL && no->sad == NULL)				
-				return isFolha(no, noPai, valor);
+			// é a raiz?
+			if(isRaiz(arvore, no) == 1)
+				noPai = NULL;
+			
+            // é folha ?            
+			if(isFolha(no) == 1)				
+				return removerFolha(arvore, no, noPai, valor);
             
             // é sub folha?
-			else if ((no->sae == NULL && no->sad != NULL) || (no->sad == NULL && no->sae != NULL)) 
-				return isSubFolha(no, noPai, valor);	
+			else if(isSubFolha(no) == 1)
+				return removerSubFolha(arvore, no, noPai, valor);	
 			
 			// é pai de dois filhos (maior dos menores)?
-			else if (no->sae != NULL && no->sad != NULL)				
-				return isPaiDoisFilhos(no, noPai, valor);
+			else if(isPaiDoisFilhos(no) == 1)			
+				return removerPaiDoisFilhos(arvore, no, noPai, valor);
         }
         else if (no->valor > valor){
 			noPai = getPai(no, valor);
-            return remover(no->sae, valor);
+            return remover(arvore, no->sae, valor);
         }
         else{
 			noPai = getPai(no, valor);
-            return remover(no->sad, valor);
+            return remover(arvore, no->sad, valor);
         }
     }
     return no;
 }
 
-Node* isFolha(Node* no, Node* noPai, int valor){
+Node* removerFolha(Arvore* arvore, Node* no, Node* noPai, int valor){
 	Node* noRemover = no;
 	
-	if(noPai->valor > valor)
-		 noPai->sae = NULL;
-	else
-		 noPai->sad = NULL;
+	if(noPai != NULL){
+		if(noPai->valor > valor)
+			 noPai->sae = NULL;
+		else
+			noPai->sad = NULL;
+	}else{
+		no = NULL;
+		arvore->raiz = no;
+	}
 		 
 	printf("Removido: %d\n", noRemover->valor);
 	free(noRemover);	
 	return no;		
 }
 
-
 //if ternário -> condição ? verdadeiro : falso
-Node* isSubFolha(Node* no, Node* noPai, int valor){
+Node* removerSubFolha(Arvore* arvore, Node* no, Node* noPai, int valor){	
 	Node* noRemover = no;
-	if(noPai->valor > valor)		
-		noPai->sae = no->sad != NULL ? noRemover->sad : noRemover->sae;
-	else
-		noPai->sad = no->sad != NULL ? noRemover->sad : noRemover->sae;
-		
+	
+	if(noPai != NULL){
+		if(noPai->valor > valor)		
+			noPai->sae = no->sad != NULL ? noRemover->sad : noRemover->sae;
+		else
+			noPai->sad = no->sad != NULL ? noRemover->sad : noRemover->sae;
+	}else{
+		no = no->sad != NULL ? noRemover->sad : noRemover->sae;
+		arvore->raiz = no;
+	}
+	
 	printf("Removido: %d\n", noRemover->valor);
 	free(noRemover);	
 	return no;	
 }
 
-Node* isPaiDoisFilhos(Node* no, Node* noPai, int valor){	
+Node* removerPaiDoisFilhos(Arvore* arvore, Node* no, Node* noPai, int valor){	
 	Node* noRemover = no;
     Node* noSubstituto = getNoSubstituto(no->sae);	 //filho esquerdo do nó que quero remover
     Node* noPaiSubstituto = getPai(no->sae, noSubstituto->valor);
     
-    noPaiSubstituto = getPai(no, noSubstituto->valor);
+    //noPaiSubstituto = getPai(no, noSubstituto->valor);
     noPaiSubstituto->sad = noSubstituto->sae;
-        
+            
     noSubstituto->sae = noRemover->sae;
     noSubstituto->sad = noRemover->sad;
-		
-    if(noPai->valor > valor)		
-        noPai->sae = noSubstituto;
-    else
-        noPai->sad = noSubstituto;
-        
+    	
+	if(noPai != NULL){
+		if(noPai->valor > valor)		
+			noPai->sae = noSubstituto;
+		else
+			noPai->sad = noSubstituto;
+	}else{	
+		no = noSubstituto;
+		arvore->raiz = no;
+	}
+	
 	printf("Removido: %d\n", noRemover->valor);
 	free(noRemover);	
 	return no;	
-}
-
-Node* getPai(Node* no, int valor){
-    if(no != NULL){
-        if (no->valor < valor){
-            if (no->sad != NULL && no->sad->valor == valor)
-                return no;
-            else
-                return getPai(no->sad, valor);
-        }
-        else if(no->valor > valor){
-            if (no->sae != NULL && no->sae->valor == valor)
-                return no;
-            else
-                return getPai(no->sae, valor);
-        }        
-    }else{
-        return NULL;
-    }
 }
 
 Node* getMaiorMenores(Node* no){

@@ -1,5 +1,5 @@
 #include "definicoes.h"
-#include "mallocArvore.h"
+#include "malloc.h"
 #include "inserir.h"
 #include "ordenar.h"
 #include "buscar.h"
@@ -63,7 +63,8 @@ void exibeBusca(Arvore* minhaArvore){
 
 void exibeRemocao(Arvore* minhaArvore){
     printf("\n#----- Removendo valores da árvore: -----#\n");
-    remover(minhaArvore->raiz, 13);
-    remover(minhaArvore->raiz, 25);
-    remover(minhaArvore->raiz, 10);
+    remover(minhaArvore, minhaArvore->raiz, 13);
+    remover(minhaArvore, minhaArvore->raiz, 25);
+    remover(minhaArvore, minhaArvore->raiz, 10);
+    remover(minhaArvore, minhaArvore->raiz, 20);
 }
